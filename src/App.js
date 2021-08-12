@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import List from "./List";
 import Alert from "./Alert";
 import Timer from "./Timer";
+import Sound from "react-sound";
 
 const getLocalStorage = () => {
   let list = localStorage.getItem("list");

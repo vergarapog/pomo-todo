@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
+import Sound from "react-sound";
 
 const Timer = () => {
   const [minutes, setMinutes] = useState(24);
   const [seconds, setSeconds] = useState(59);
   const [message, setMessage] = useState(false);
   const [isRunning, setIsRunning] = useState(false);
+
+  const [isPlaying, setIsPlaying] = useState(false); //for react-sound
 
   const handleClick = () => {
     if (!isRunning) {
@@ -20,6 +23,10 @@ const Timer = () => {
     }
   };
   useEffect(() => {
+    if (minutes > 5) {
+      setMessage(false);
+    }
+
     if (isRunning) {
       console.log("running");
       let interval = setInterval(() => {
@@ -33,9 +40,15 @@ const Timer = () => {
             let minutes = message ? 24 : 4;
             let seconds = 59;
 
+            setIsPlaying(true);
+
             setSeconds(seconds);
             setMinutes(minutes);
             setMessage(!message);
+
+            setTimeout(() => {
+              setIsPlaying(false);
+            }, 2000);
           }
         } else {
           setSeconds(seconds - 1);
@@ -54,6 +67,12 @@ const Timer = () => {
           1 Pomodoro Session Finished! Take a Break :)
         </div>
       )}
+      <Sound
+        url="https://my-s3-uploads103811-dev.s3.amazonaws.com/mixkit-bell-notification-933.wav"
+        playStatus={isPlaying ? Sound.status.PLAYING : Sound.status.STOPPED}
+        playFromPosition={0 /* in milliseconds */}
+        volume={30}
+      />
       <div className="timer">
         {timeMinutes}:{timeSeconds}
       </div>
