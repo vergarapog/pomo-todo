@@ -1,6 +1,6 @@
 # pomo-todo
 
-Pomodoro with an accompanying todolist demonstating renering in react
+Pomodoro with an accompanying todolist demonstrating rendering in react
 
 [View my Portofolio](https://brianvergara.netlify.app/)
 
